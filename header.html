@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gamified</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+    };
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+    @keyframes hello-world {
+      from {
+        transform: rotate(-90deg);
+      }
+      to {
+        transform: rotate(180deg);
+      }
+    }
+
+    body {
+      background-color: white;
+      color: black;
+      font-family: "DM Sans";
+      overflow: hidden;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    box {
+      position: absolute;
+      top: 50%;
+      left: 20%;
+      translate: -50% -50%;
+      background-color: white;
+      min-height: 10000px;
+      min-width: 5px;
+      animation: hello-world 3s ease infinite;
+      border-radius: 0px;
+      overflow: hidden;
+    }
+
+    box.two {
+      animation-delay: 0.2s;
+      left: 30%;
+    }
+
+    box.three {
+      animation-delay: 0.4s;
+      left: 40%;
+    }
+
+    box.four {
+      animation-delay: 0.6s;
+      left: 50%;
+    }
+
+    box.five {
+      animation-delay: 0.8s;
+      left: 60%;
+    }
+
+    box.six {
+      animation-delay: 1s;
+      left: 70%;
+    }
+
+    box.seven {
+      animation-delay: 1.2s;
+      left: 80%;
+    }
+
+    /* New styles for boxes */
+.light-box {
+  background-color: #f7fafc; /* Light background */
+  color: #2d3748; /* Dark text */
+}
+
+.dark-box {
+  background-color: #2d3748; /* Dark background */
+  color: #f7fafc; /* Light text */
+}
+
+/* New styles for SVG */
+.light-svg {
+  fill: #2d3748; /* Dark color for light mode */
+}
+
+.dark-svg {
+  fill: #f7fafc; /* Light color for dark mode */
+}
+
+  </style>
+</head>
+<body class="bg-white dark:bg-gray-900 dark:text-white transition-all">
+  <!-- Header -->
+  <header class="flex justify-between items-center p-4 bg-blue-500 dark:bg-blue-800">
+    <h1 class="text-2xl font-bold">The Gamified</h1>
+    <button id="theme-toggle" class="p-2 bg-white dark:bg-gray-700 rounded-full focus:outline-none">
+      <!-- Dark Mode Icon (Sun/Moon) -->
+      <svg id="sun-icon" class="hidden dark:block light-svg" stroke="currentColor" viewBox="0 0 16 16" height="28" width="28">
+        <path d="M8 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 8 0zm4.243 2.243a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1-.707.707l-.707-.707a.5.5 0 0 1 0-.707zM16 8a.5.5 0 0 1-.5.5H15a.5.5 0 0 1 0-1h.5A.5.5 0 0 1 16 8zm-2.121 4.243a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707-.707l.707-.707a.5.5 0 0 1 .707 0zM8 14a.5.5 0 0 1-.5.5v1a.5.5 0 0 1 1 0v-1A.5.5 0 0 1 8 14zm-5.121-2.121a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707-.707l.707-.707a.5.5 0 0 1 .707 0zM0 8a.5.5 0 0 1 .5.5H1a.5.5 0 0 1 0-1H.5A.5.5 0 0 1 0 8zm2.121-4.243a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1-.707.707l-.707-.707a.5.5 0 0 1 0-.707zM8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/>
+      </svg>
+      <svg id="moon-icon" class="block dark:hidden dark-svg" stroke="currentColor" viewBox="0 0 16 16" height="28" width="28">
+        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Content Section -->
+  <main class="p-6 flex justify-center items-center h-screen relative">
+    <!-- Animation Boxes -->
+    <box></box>
+    <box class="two"></box>
+    <box class="three"></box>
+    <box class="four"></box>
+    <box class="five"></box>
+    <box class="six"></box>
+    <box class="seven"></box>
+    
+    <!-- Main Content -->
+    <div class="container mx-auto mt-10 flex justify-center items-center">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center w-full max-w-4xl z-10 relative">
+          <!-- Box 1: Text Generation -->
+          <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
+              <h2 class="text-xl font-bold mb-4">Text Generation</h2>
+              <button onclick="generateText()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Generated Answer</button>
+          </div>
+
+          <!-- Box 2: Text-to-Speech -->
+          <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
+              <h2 class="text-xl font-bold mb-4">Text-to-Speech</h2>
+              <button onclick="speakText()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Speak Text</button>
+          </div>
+
+          <!-- Box 3: Quiz -->
+          <div class="p-4 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg">
+              <h2 class="text-xl font-bold mb-4">Quiz</h2>
+              <button onclick="startQuiz()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">Start Quiz</button>
+          </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+// Dark Mode Toggle Script
+const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+
+        // Set initial theme based on local storage
+        if (localStorage.getItem('theme') === 'dark') {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        // Toggle theme on button click
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            sunIcon.classList.toggle('hidden');
+            moonIcon.classList.toggle('hidden');
+        });
+
+        
+    // location of gennerate text
+    function generateText() {
+    window.location.href = "./generate-text.html";
+    }
+
+    // location Text-to-Speech
+    function speakText() {
+      window.location.href = "./text-tospeeh.html";
+    }
+
+    //location quiz
+    function startQuiz() {
+        window.location.href = "./quiz.html";
+
+    }
+
+  </script>
+</body>
+</html>
+

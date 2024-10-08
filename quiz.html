@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Quiz Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        };
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
+        body {
+            background-color: white;
+            color: black;
+            font-family: "DM Sans";
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .correct {
+            background-color: #38a169; /* Green for correct answer */
+            color: white;
+        }
+
+        .incorrect {
+            background-color: #e53e3e; /* Red for incorrect answer */
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 dark:text-white transition-all">
+ <!-- Header -->
+ <script>
+    function backagain() {
+        window.location.href = "./header.html";
+    }
+   </script>
+  <header class="flex justify-between items-center p-4 bg-blue-500 dark:bg-blue-800">
+    <h1 class="text-2xl font-bold">Text Generator</h1>
+    <div class="flex items-center">
+      <button onclick="backagain()" class="mr-4 px-4 py-2 bg-gray-300 dark:bg-gray-600 text-black dark:text-white rounded">
+        Back
+      </button>
+      <button id="theme-toggle" class="p-2 bg-white dark:bg-gray-700 rounded-full focus:outline-none">
+        <svg id="sun-icon" class="hidden dark:block" stroke="currentColor" viewBox="0 0 16 16" height="28" width="28">
+          <path d="M8 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 8 0zm4.243 2.243a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1-.707.707l-.707-.707a.5.5 0 0 1 0-.707zM16 8a.5.5 0 0 1-.5.5H15a.5.5 0 0 1 0-1h.5A.5.5 0 0 1 16 8zm-2.121 4.243a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707-.707l.707-.707a.5.5 0 0 1 .707 0zM8 14a.5.5 0 0 1-.5.5v1a.5.5 0 0 1 1 0v-1A.5.5 0 0 1 8 14zm-5.121-2.121a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707-.707l.707-.707a.5.5 0 0 1 .707 0zM0 8a.5.5 0 0 1 .5.5H1a.5.5 0 0 1 0-1H.5A.5.5 0 0 1 0 8zm2.121-4.243a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1-.707.707l-.707-.707a.5.5 0 0 1 0-.707zM8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/>
+        </svg>
+        <svg id="moon-icon" class="block dark:hidden" stroke="currentColor" viewBox="0 0 16 16" height="28" width="28">
+          <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+    <div class="container mx-auto max-w-md p-6 bg-white rounded-lg shadow-lg mt-10">
+        <h1 class="text-2xl font-bold text-center mb-6 text-black">Simple Quiz Game</h1>
+        
+        <div id="difficulty" class="mb-4">
+            <span class="text-lg text-black">Select Difficulty:</span>
+            <div class="flex space-x-4">
+                <button id="easy" class="difficulty-btn bg-blue-500 text-white px-4 py-2 rounded">Easy</button>
+                <button id="medium" class="difficulty-btn bg-yellow-500 text-white px-4 py-2 rounded">Medium</button>
+                <button id="hard" class="difficulty-btn bg-red-500 text-white px-4 py-2 rounded">Hard</button>
+            </div>
+        </div>
+
+        <div id="quiz" class="mb-4 text-black" ></div>
+        <button id="submit" class="w-full bg-green-500 text-white px-4 py-2 rounded hidden">Submit Answer</button>
+        <div id="result" class="mt-4 text-black"></div>
+    </div>
+
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+
+        // Set initial theme based on local storage
+        if (localStorage.getItem('theme') === 'dark') {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        // Toggle theme on button click
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            sunIcon.classList.toggle('hidden');
+            moonIcon.classList.toggle('hidden');
+        });
+        const quizData = {
+    easy: [
+        {
+            question: "What is the capital city of the Philippines?",
+            options: ["A. Manila", "B. Quezon City", "C. Davao", "D. Cebu"],
+            correct: "A. Manila"
+        },
+        {
+            question: "Which planet is closest to the Sun?",
+            options: ["A. Venus", "B. Mercury", "C. Mars", "D. Earth"],
+            correct: "B. Mercury"
+        },
+        {
+            question: "What is 2 + 2?",
+            options: ["A. 3", "B. 4", "C. 5", "D. 6"],
+            correct: "B. 4"
+        }
+    ],
+    medium: [
+        {
+            question: "What is the largest ocean on Earth?",
+            options: ["A. Atlantic", "B. Indian", "C. Pacific", "D. Arctic"],
+            correct: "C. Pacific"
+        },
+        {
+            question: "Who wrote the play 'Hamlet'?",
+            options: ["A. Shakespeare", "B. Dickens", "C. Tolkien", "D. Austen"],
+            correct: "A. Shakespeare"
+        },
+        {
+            question: "What is the capital of Australia?",
+            options: ["A. Sydney", "B. Melbourne", "C. Canberra", "D. Brisbane"],
+            correct: "C. Canberra"
+        }
+    ],
+    hard: [
+        {
+            question: "What is the square root of 64?",
+            options: ["A. 6", "B. 7", "C. 8", "D. 9"],
+            correct: "C. 8"
+        },
+        {
+            question: "What is the hardest natural substance on Earth?",
+            options: ["A. Quartz", "B. Diamond", "C. Topaz", "D. Ruby"],
+            correct: "B. Diamond"
+        },
+        {
+            question: "Which gas is most abundant in the Earth's atmosphere?",
+            options: ["A. Oxygen", "B. Nitrogen", "C. Carbon Dioxide", "D. Hydrogen"],
+            correct: "B. Nitrogen"
+        }
+    ]
+};
+
+
+        let currentQuizIndex = 0;
+        let score = 0;
+        let selectedDifficulty = ""; // Track the selected difficulty
+
+        const quizContainer = document.getElementById('quiz');
+        const resultContainer = document.getElementById('result');
+        const submitButton = document.getElementById('submit');
+
+        document.querySelectorAll('.difficulty-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                selectedDifficulty = button.id; // Set selected difficulty based on button ID
+                currentQuizIndex = 0; // Reset quiz index
+                score = 0; // Reset score
+                loadQuiz(); // Load questions for the selected difficulty
+                submitButton.classList.remove('hidden'); // Show submit button
+            });
+        });
+
+        async function getExplanation(answer, question) {
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer  sk-proj-kN5mT6y7L8Q84utUotGpT3BlbkFJhaw37cc2CVYGSl5j4FS7` // Replace with your actual API key
+                },
+                body: JSON.stringify({
+                    model: "gpt-3.5-turbo",
+                    messages: [
+                        {
+                            role: "user",
+                            content: `The question is: "${question}". The selected answer is: "${answer}". Please provide an explanation for the correct answer.`
+                        }
+                    ]
+                })
+            });
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        }
+
+        function loadQuiz() {
+            const currentQuizData = quizData[selectedDifficulty][currentQuizIndex];
+            if (!currentQuizData) {
+                resultContainer.innerHTML = `<p class="text-red-500">No more questions available for this difficulty level!</p>`;
+                submitButton.classList.add('hidden'); // Hide the submit button if no questions are left
+                return;
+            }
+            quizContainer.innerHTML = `
+                <div class="question font-medium">${currentQuizData.question}</div>
+                <div class="options mt-2">
+                    ${currentQuizData.options.map((option, index) => `
+                        <button id="option${index}" class="option-btn w-full border border-gray-300 rounded px-2 py-1 my-1">${option}</button>
+                    `).join('')}
+                </div>
+            `;
+            addOptionListeners(currentQuizData.correct); // Add listeners to option buttons
+        }
+
+        function addOptionListeners(correctAnswer) {
+    document.querySelectorAll('.option-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const userAnswer = this.innerText; // Get the user's selected answer
+            if (userAnswer === correctAnswer) {
+                this.classList.add('correct'); // Add class for correct answer
+                resultContainer.innerHTML = `<p class="text-green-500">Correct!</p>`;
+            } else {
+                this.classList.add('wrong'); // Add class for wrong answer
+                resultContainer.innerHTML = `<p class="text-red-500">Wrong! The correct answer is ${correctAnswer}.</p>`;
+            }
+
+            // Fetch explanation from the AI
+            getExplanation(userAnswer, quizData[selectedDifficulty][currentQuizIndex].question).then(explanation => {
+                resultContainer.innerHTML += `<p>${explanation}</p>`;
+                
+                // Move to the next question after a delay
+                setTimeout(() => {
+                    currentQuizIndex++; // Increment the index
+                    loadQuiz(); // Load the next question
+                }, 3000); // Change to 3000 ms (3 seconds) delay as needed
+            });
+
+            submitButton.classList.add('hidden'); // Hide submit button after selection
+        });
+    });
+}
+    </script>
+</body>
+</html>
+
