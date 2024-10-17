@@ -97,13 +97,26 @@
 </head>
 <body class="bg-white dark:bg-gray-900 dark:text-white transition-all">
   <!-- Header -->
+
+<script>
+        function backagain() {
+            window.location.href = "./index.html";
+        }
+    </script>
+
   <header class="flex justify-between items-center p-4 bg-blue-500 dark:bg-blue-800">
     <h1 class="text-2xl font-bold">The Gamified</h1>
+
+
     <button id="theme-toggle" class="p-2 bg-white dark:bg-gray-700 rounded-full focus:outline-none">
       <!-- Dark Mode Icon (Sun/Moon) -->
       <svg id="sun-icon" class="hidden dark:block light-svg" stroke="currentColor" viewBox="0 0 16 16" height="28" width="28">
         <path d="M8 0a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 8 0zm4.243 2.243a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1-.707.707l-.707-.707a.5.5 0 0 1 0-.707zM16 8a.5.5 0 0 1-.5.5H15a.5.5 0 0 1 0-1h.5A.5.5 0 0 1 16 8zm-2.121 4.243a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707-.707l.707-.707a.5.5 0 0 1 .707 0zM8 14a.5.5 0 0 1-.5.5v1a.5.5 0 0 1 1 0v-1A.5.5 0 0 1 8 14zm-5.121-2.121a.5.5 0 0 1 0 .707l-.707.707a.5.5 0 0 1-.707-.707l.707-.707a.5.5 0 0 1 .707 0zM0 8a.5.5 0 0 1 .5.5H1a.5.5 0 0 1 0-1H.5A.5.5 0 0 1 0 8zm2.121-4.243a.5.5 0 0 1 .707 0l.707.707a.5.5 0 0 1-.707.707l-.707-.707a.5.5 0 0 1 0-.707zM8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/>
       </svg>
+
+      <button onclick="backagain()" class="mr-4 px-4 py-2 bg-gray-300 dark:bg-gray-600 text-black dark:text-white rounded">
+                Logout
+            </button>
       <svg id="moon-icon" class="block dark:hidden dark-svg" stroke="currentColor" viewBox="0 0 16 16" height="28" width="28">
         <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
       </svg>
@@ -181,7 +194,7 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 
     // location Text-to-Speech
     function speakText() {
-      window.location.href = "./text-tospeeh.html";
+      window.location.href = "#";
     }
 
     //location quiz
